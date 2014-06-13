@@ -1,0 +1,243 @@
+@charset "iso-8859-1";
+@media only screen 
+and (min-width : 987px)
+and (min-height : 550px) {
+	body{
+		background-color: #dddddd;
+		overflow-x:hidden;
+		overflow:hidden;
+	}
+	*{margin:0; padding:0; text-decoration:none; }
+
+		#pesquisar
+		{
+			width:575px;
+			height:35px;
+			margin-top:10px;
+			margin-left:-130px;
+			position: absolute;
+			top:75px;
+			left: 50%;
+		}
+		#login{ background-color:#293234; 
+		width:270px; 
+		height:100px; 
+		margin-left:65%; 
+		border-radius:0 0 2px 2px;
+		opacity:0.9;
+		}
+		#pesq
+		{
+			font-size:12px;
+			font-family:Verdana, Geneva, sans-serif;
+			padding-top:10px;
+			padding-left:10px;
+			float:left;
+		}
+		.div-title{
+			position: absolute;
+			top:25px;
+			width: 60%;
+			height: 35px;
+			background-color: #8d2136;
+		}
+		.list-chat{
+			position: absolute;;
+			width: 235px;
+			left: 50%;
+			margin-left: 200px;
+			text-align: right;
+			background-color: #ccc;
+			height: 490px;
+			overflow-y:scroll;
+			overflow-x:hidden;
+		}
+		.user-chat{
+			width: 200px;
+			margin-right: 2px;
+			background-color: #ddd;
+			height: 35px;
+		}
+		.title{
+			position: absolute;
+			top:30px;
+			color: #fff;
+			left:50px;
+			z-index: 1;
+			font: 1.25em Verdana, Geneva, sans-serif;
+		}
+		.btn-default{
+			width: 100px;
+			height: 28px;
+			background-color: #aaa;
+			margin-left:25px;
+			font: 0.75em Verdana, Geneva, sans-serif;
+
+		}
+		.btn-default-chat{
+			width: 145px;
+			height: 35px;
+			margin-left: 5px;
+			background-color: #aaa;
+			font: 0.75em Verdana, Geneva, sans-serif;
+
+		}
+		.btn-default.btn-pesquisar{
+			padding-top:10px;
+			padding-left:10px;
+			float:left;
+		}
+		.btn-default#abrirform{
+			margin-top: 10px;
+			margin-bottom: 15px;
+		}
+		.btn-default-index{
+			width: 125px;
+			height: 30px;
+			background-color: #aaa;
+		}
+		.btn-form-default{
+			width: 200px;
+			height: 35px;
+			background-color: #aaa;
+			margin-left:25px;
+			font: 1em Verdana, Geneva, sans-serif;
+		}
+		.btn-carrega-agenda{
+			margin-left: 90px;
+			margin-top: 45px;
+		}
+		.btn-new-agenda{
+			margin-left: 260px;
+			margin-top: 45px;
+		}
+		.btn-agenda-default{
+			width: 165px;
+			height: 40px;
+			background-color: #bababa;
+			position: absolute;
+			left:50%;
+			top:50%;
+			font: 1em Verdana, Geneva, sans-serif;
+
+		}
+		.form-control{
+			width: 100%;
+			min-height: 30px;
+			font: 1em Verdana, Geneva, sans-serif;
+		}
+		.menu {
+		    background: url("../Images/menu-bg.jpg");
+		    width: 100px;
+		    height: 100%;
+		    position: fixed;
+		    top: 0;
+		    bottom: auto;
+		    left: 0;
+		    right: auto; }
+			.container-menu{
+				position:absolute;
+				top:50%;
+				width:100%;
+				margin-top:-120px;
+			}
+				.container-menu #logo-mini{
+					position:fixed;
+					top:20px;	
+					left:5px;
+					width:90px;
+					
+				}
+				.container-menu #social{
+					position:fixed;
+					bottom:25px;	
+				}
+				.link-menu{
+					position:relative;
+					background-image:url(../Images/menu-bg.jpg);
+					width:100%;	height:60px;
+					display:block;
+				}
+				.link-menu:hover{
+					background-image:url(../Images/menu-bg-hover.jpg);
+				}
+				
+				.social-menu .link-menu{
+					position:relative;
+					bottom:3%;
+					left:100px;
+					margin-left:2px;
+					background-image:url(../Images/menu-bg.jpg);
+					width:25px;	height:20px;
+					display:none;
+					float:left;
+	
+				}
+					.social-menu .ico-menu{
+						position:relative;
+						left:0;
+						top:0;
+						width:auto;
+						height:18px;					
+					}
+					.ico-menu{
+						position:relative;
+						left:37px;
+						top:17px;
+						width:22px;
+						height:22px;					
+					}
+					.text-menu{
+						font-family: Verdana, Geneva, sans-serif;
+						font-size:18px;
+						font-stretch:expanded;
+						font-style:normal;
+						font-weight:400;
+						text-decoration:none;
+						color:#f1f1f1;
+						text-align:right;
+						margin-right:25px;
+						margin-top:-10px;
+						display:none;
+					}
+					
+	
+				
+		.logo-article{
+			position:absolute;
+			margin-left:600px;
+			width:100%;	
+		}
+		.slide-article{
+			position:absolute;
+			margin-left:100px;
+			height:100%;
+			width:100%;
+			border-bottom:#8c1f34 7px solid;
+			z-index:-5;
+			text-align:center;
+		}
+		.img-slide{
+			min-width:100%;
+			min-height:100%;
+			height:100%;
+			width:100%;
+		}
+		#articleLogin{
+			position:absolute;
+			bottom:0;
+			margin-left:100px;
+			height:35%;
+			width:100%;
+		}
+	#calendario{
+		margin-left: 90px;
+		margin-top: 20px;
+		top:80px;
+		left:50%;
+		position: absolute;
+		z-index: 1;
+	}
+
+}
+

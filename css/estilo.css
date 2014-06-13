@@ -1,0 +1,42 @@
+.borda { border: thin solid #f00; }
+.divisoria {margin-top: 75px;}
+.centro { text-align: center; }
+
+a { color:#1063aa; }
+a:hover { color:#1063aa; }
+a:visited { color:#1063aa; }
+a:active { color:#1063aa; }
+#lblErro{ margin-top:-12px;}
+#chatdiv{ height:450px; background-color:#EEE; border:#ddd 1px solid; overflow-y:scroll;}
+#pdata{text-align:center; color: #999; margin-top:5px; white-space:pre-wrap;}
+#pdest{float:left; background-color:#DDD; width:60%; font-weight:700; margin-top:5px; height:auto; white-space:pre-wrap;}
+#premet{float:right; background-color:#DDD; width:60%; font-weight:700;  margin-top:5px; height:auto; white-space:pre-wrap;}
+#plinha{clear:both;}
+#pdataF{float:right; color:#999; margin-top:5px; white-space:pre-wrap;}
+
+#form1  { 	
+			width: 400px; height: 265px; 
+			position:absolute;  
+			color: #fff;
+			right:200px;
+		}
+
+#caixaLogado  	{ 	width: 350px;
+					position:absolute; top:27px; left:50%;
+					margin-left:115px; 
+					padding: 7px;
+					text-align: right;
+					z-index: 10;
+					font:1em Verdana, Geneva, sans-serif;
+			  	}
+
+#areaCentral { background-image:url(../Images/bg001.jpg); position: absolute; top:0px; min-height: 100%; height:auto;left:50%; margin-left:-387.5px; width: 875px; border-left: 2px #ccc solid; border-right: 2px #ccc solid;}
+
+#form2  { 	width: 674px; height: 197px;  padding: 7px;
+			position:relative; left:50%; margin-left: -337px;
+		}
+
+#msg  { 	padding: 0px;
+			position:relative; 
+			top:0; left:50%; margin-left:-500px; width: 1000px;
+		}		

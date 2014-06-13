@@ -1,0 +1,150 @@
+	table.table{
+		background:#999; 
+
+		font: 0.75em Verdana, Geneva, sans-serif;
+		width: 850px;
+		margin-left: 12.5px;
+		margin-top: 10px;
+		border-collapse:collapse;
+		line-height:2em;
+		border:1px solid #d0d0d0;
+		position: absolute;
+	}
+	table.agenda{
+		width: 500px;
+		margin-top: 25px;
+		position: absolute;
+		z-index: 1;
+	}
+	.msg{
+		margin-left: 26px;
+		margin-top: 6px;
+		font: 1em Verdana, Geneva, sans-serif;
+		position: absolute;
+	}
+	table.table thead tr th{
+		height: 25px;
+		background:#AAA;
+		color:#fff;
+		margin: 5px;	
+	}
+	table.table td, table.table th {
+		padding:0 0.5em; 
+		border-top:1px solid #ddd;
+	}
+	table.table td{
+		background-color: #f1f1f1;
+		height: 20px;
+	}
+	table.table tbody tr.odd th {
+		border-right:1px solid #eee;
+	}
+	table.table tbody td {
+		color:#363; 
+		vertical-align:middle; 
+		height:3em;
+	}
+	table.table caption, table.table tfoot {
+		font-family:Verdana, Geneva, sans-serif;
+		font-size:3em; 
+		line-height:2em; 
+		height:2em; 
+		padding-right:0.25em; 
+		text-align:right; 
+		color:#fff; 
+		border:1px solid #ddd;
+	}
+	table.table thead tr {
+		color:#fff; 
+		height:4em;
+	}
+	table.table thead tr th.codigo {
+		color:#fff; 
+		text-align:center;
+		padding-right:1.5em;
+	}
+
+	table.table tbody tr.odd {
+		background:#d1d1d1;
+	}
+	table.table tbody th {
+		background:#ccc;
+		text-align: left;
+		height: 25px;
+		font-family:Verdana, Geneva, sans-serif;
+		font-size:1.25em; 
+
+	}
+	table.table tbody td.codigo, table.table thead th.codigo{
+		width:75px;
+		color:#000; 
+		text-align:center; 
+		padding-right:1.5em;
+	}
+	table.table thead th.codigo{
+		text-align: left;
+	}
+	table.table tbody td.cliente, table.table thead th.cliente{
+		width:350px;
+		text-align:left;
+		padding-left: 10px;
+	}
+	table.table tbody td.data, table.table thead th.data{
+		width:100px;
+		text-align:center;
+	}
+	table.table tbody td.desc, table.table thead th.desc{
+		width:500px;
+		max-width: 450px;
+	}
+	table.table tbody td.classe, table.table thead th.classe{
+		width:275px;
+		text-align:left;
+		padding-left: 10px;
+	}
+	table.table tbody td.btn, table.table thead th.btn{
+		width:75px;
+		text-align:center;
+	}
+	table.table tbody th a {
+		color:#fff; 
+		text-decoration:none; 
+		border-right:0.8em solid #fc3; 
+		font-weight:bold; 
+		text-align:right; 
+		padding-right:0.5em; 
+		float:right; 
+		border-top:0.8em solid #839965; 
+		border-bottom:0.8em solid #839965;
+	}
+	table.table thead tr th a{
+		color:#fff;
+	}
+	table.table tbody tr th a:visited {
+		border-right:0.8em solid #fff;
+		color:#fff;
+	}
+	table.table tbody tr.odd th a:visited {
+		border-right:0.8em solid #fff;
+	}
+	table.table tbody td a:visited {
+		color:#000; 
+		font-weight:normal; 
+		text-decoration:line-through;
+	}
+	table.table tbody td a {
+		color:#000; 
+		font-weight:bold;
+	}
+	table.table tbody tr th a:hover {
+		color:#fff; 
+		border-right:0.8em solid #fff;
+	}
+	table.table tbody tr.odd th a:hover {
+		color:#fff; 
+		border-right:0.8em solid #eee;
+	}
+	table.table tbody td a:hover {
+		color:#c00;  
+		text-decoration:none;
+	}
