@@ -54,59 +54,81 @@ include_once("conexao.php");
     
     
     <script>
-	$(document).ready(function(){
-		
-		function replaceAll(find, replace,str) {     var re = new RegExp(find, 'g');      str = str.replace(re, replace);      return str; } 
-		$("#enviamsg").click(function(){
-			
-			var x=<?php echo $cd?>;
-			var y=$("#cmbUser").val();
-			var z=$("#txtInfo").val();
-			$.ajax({
-                          type:"post",
-                          url:"novamsg.php",
-                          data:"cdr="+x+"&cdd="+y+"&msg="+z,
-                          success:function(data){}
+      $(document).ready(function(){
+        $("#enviamsg").click(function(){
+        var x=<?php echo $cd?>;
+        var y=$("#cduser").val();
+        var z=$("#txtInfo").val();
+        $("#txtInfo").val("");
+        $.ajax({
+                            type:"post",
+                            url:"novamsg.php",
+                            data:"cdr="+x+"&cdd="+y+"&msg="+z,
+                            success:function(data){}
 
-                      });
-					  return false;
-			});
-	$("#cmbUser").change(function(){
-		
-		$("#chatdiv").html('');
-		var z=$("#cmbUser").val();
-		var q="<?php echo $cd?>";
-		var f="";
-		$.getScript("carregachat.php?cdr="+q+"&cdd="+z, function(){
-					
-					var c=unescape(chat["chat"]);
-					f=replaceAll(" &lt; ","<",c);
-					f=replaceAll(" &gt; ",">",f);
-					$("#chatdiv").prepend(f);
-					window.setInterval(function(){
+                        });
+              return false;
+        });
 
-		var ff="";
-		$.getScript("carregachat.php?cdr="+q+"&cdd="+z, function(){
-					
-					var cc=unescape(chat["chat"]);
-					ff=replaceAll(" &lt; ","<",cc);
-					ff=replaceAll(" &gt; ",">",ff);
-					if(f!=ff)
-					{
-						$("#chatdiv").html('');
-						$("#chatdiv").prepend(ff);
-						f=ff;
-					}
-					
-			});},1000);
-		});
+      });
+      var iduser2='';
+      var refreshIntervalId;
 		
+		  function replaceAll(find, replace,str) {     var re = new RegExp(find, 'g');      str = str.replace(re, replace);      return str; } 
 		
-			
-	 });
-	});
+      function keyEnterPressed(e){
+      if(e.keyCode=='13'){$("#enviamsg").click();}
+      }
+      function carregarchat(iduser){
+              if (iduser!=iduser2) {
+                clearInterval(refreshIntervalId);
+                iduser2=iduser;
+                $("#chatdiv").html('');
+                $("#txtInfo").val("");
+              };
+              $("#cduser").val(iduser);
+              $("#chatdiv").html('');
+              var q="<?php echo $cd?>";
+              var f="";
+              $.getScript("carregachat.php?cdr="+q+"&cdd="+iduser, function(){
+                    
+                    var c=unescape(chat["chat"]);
+                    f=replaceAll(" &lt; ","<",c);
+                    f=replaceAll(" &gt; ",">",f);
+                    $("#chatdiv").prepend(f);
+                    refreshIntervalId=    window.setInterval(function(){
+
+              var ff="";
+              $.getScript("carregachat.php?cdr="+q+"&cdd="+iduser, function(){
+                    
+                    var cc=unescape(chat["chat"]);
+                    ff=replaceAll(" &lt; ","<",cc);
+                    ff=replaceAll(" &gt; ",">",ff);
+                    if(f!=ff)
+                    {
+                      $("#chatdiv").html('');
+                      $("#chatdiv").prepend(ff);
+                      f=ff;
+                    }
+                    
+                });},1000);
+              });
+              
+              
+                
+             };
 	</script>
-    
+    <script type="text/javascript"> 
+
+function stopRKey(evt) { 
+  var evt = (evt) ? evt : ((event) ? event : null); 
+  var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null); 
+  if ((evt.keyCode == 13) && (node.type=="text"))  {return false;} 
+} 
+
+document.onkeypress = stopRKey; 
+
+</script>
     
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -116,7 +138,10 @@ include_once("conexao.php");
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-    <body style="overflow:auto; overflow-y:auto;">
+  <body style="overflow:auto; overflow-y:auto;">
+    <div id="fundo"></div>
+    <div id="areaCentral2"></div>
+
   <aside class="menu">
             <nav class="container-menu">
             	<div id="logo-mini">
@@ -133,7 +158,7 @@ include_once("conexao.php");
                     </a>
                        
                     <a href="cliente.php" class="link-menu" >
-                      <ul><img src="Images/ico/empresa2.png" alt="Home" class="ico-menu"> <p class="text-menu">¡reas de AtuaÁ„o</p></ul>
+                      <ul><img src="Images/ico/empresa2.png" alt="Home" class="ico-menu"> <p class="text-menu">√Åreas de Atua√ß√£o</p></ul>
                     </a>
                     
                     <a href="chat.php" class="link-menu" id="home">
@@ -144,7 +169,7 @@ include_once("conexao.php");
                 {
               ?>
                 <a href="perfil.php" class="link-menu" >
-                      <ul><img src="Images/ico/home.png" alt="Home" class="ico-menu"> <p class="text-menu">¡reas de AtuaÁ„o</p></ul>
+                      <ul><img src="Images/ico/home.png" alt="Home" class="ico-menu"> <p class="text-menu">√Åreas de Atua√ß√£o</p></ul>
                     </a>
                   
                 <a href="processo.php" class="link-menu" >
@@ -167,11 +192,11 @@ include_once("conexao.php");
             </nav>
         </aside>
 <!--Fim Menu--> 
-         <div id="caixaLogado">
+
+<div id="areaCentral">
+     <div id="caixaLogado">
         Ol&aacute; <?=$email ?> | <a href="sair.php">Sair</a>
     </div>
-
-    <div id="areaCentral">
 
 
       <div class="divisoria"> </div>
@@ -192,46 +217,42 @@ include_once("conexao.php");
       ?>
         <form class='form-horizontal' role='form' method='post' id="form" name="form">
             <div class='form-group'>
-              <label for='inputUser' class='col-sm-2 control-label'>Mensagem para:</label>
-              <div class='col-sm-8'>
-                <select class='form-control' id='cmbUser' name='cmbUser'>
-                  <option value='0'>Selecione o Usuario</option>
+              <div class='list-chat'>
                     <?php
                         if($typeU==1 ){
                            $comando ="select user.nm_user, user.cd_user from advogado_user inner join user where advogado_user.cd_advogado=".$cd." and user.cd_user=advogado_user.cd_cliente order by cd_user ASC";
                         }else if($typeU==2){
                             $comando ="select user.nm_user, user.cd_user from advogado_user inner join user where advogado_user.cd_cliente=".$cd." and user.cd_user=advogado_user.cd_advogado order by cd_user ASC";
                         }
-                        echo $comando;
                         $cSQL = seleciona($comando);
                         $qtdLinhas = mysql_num_rows($cSQL);
 
                         if ($qtdLinhas!=0)
                         {
                             while($dados=mysql_fetch_array($cSQL))
-                            {                 
-                                echo "<option value='".  $dados[1] ."'>  CÛd: " . $dados[1] ." -  ".$dados[0] . " </option>";
+                            { 
+                              ?>             
+                                <input type="button" onClick="carregarchat(this.id);" id="<?=$dados[1] ?>" class="user-chat" value=" <?=$dados[0]?>">
+                              <?php
                             }
                         }
                     ?>
 
-                </select>
               </div>
             </div>
             <div class='form-group'>
-              <label for='inputDesc' class='col-sm-2 control-label'></label>
               <div class='col-sm-8 ' >
                 <div class='form-control ' id="chatdiv">
                 </div>
               </div>
             </div>
+            <input type='hidden' id='cduser' name='cduser' value=''>
             <div class='form-group'>
-              <label for='inputDesc' class='col-sm-2 control-label'>Mensagem:</label>
               <div class='col-sm-6'>
-                <input type="text" id='txtInfo' name='txtInfo' class="form-control" placeholder='Digite aqui sua mensagem' rows="1" maxlength="350" />
+                <input type="text" id='txtInfo' name='txtInfo' class="form-control" placeholder='Digite aqui sua mensagem' maxlength="350" onkeypress="keyEnterPressed(event);" />
               </div>
-              <div class='col-sm-2'>
-                <button type='button' class='btn btn-default col-sm-12' id="enviamsg" >Enviar</button>
+              <div class='col-sm-2'>                
+                <button type='button' class='btn btn-default-chat' id="enviamsg">Enviar</button>
               </div>
             </div>
         </form>

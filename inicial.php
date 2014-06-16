@@ -75,7 +75,9 @@ include_once("conexao.php");
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body style="overflow:auto; overflow-y:auto;">
+   <body style="overflow:auto; overflow-y:auto;">
+    <div id="fundo"></div>
+    <div id="areaCentral2"></div>
   <aside class="menu">
             <nav class="container-menu">
             	<div id="logo-mini">
@@ -104,6 +106,7 @@ include_once("conexao.php");
             </nav>
         </aside>
 <!--Fim Menu--> 
+<div id="areaCentral">
      <div id="caixaLogado">
         Ol&aacute; <?=$email ?> | <a href="sair.php">Sair</a>
      </div>

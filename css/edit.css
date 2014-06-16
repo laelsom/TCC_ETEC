@@ -14,13 +14,31 @@
 		position: fixed;
 		top:10%;
 		left: 50%;
-		margin-left: -410px;
-		width: 820px;
+		margin-left: -385px;
+		width: 875px;
 		height: 80%;
-		min-height: 400px;
+		min-height: 400px;		
+		background:url(../Images/bg001.jpg);
+	}
+	.form-horizontal-control{
+		position: relative;
+		width: 865px;
+		height: 89%;
+		margin:15px 0;
+		padding-right: 10px;
+		padding-bottom: 1%;
 		overflow-y: scroll;
 		overflow-x:hidden;
-		background:url(../Images/bg001.jpg);
+	}
+	.form-horizontal{
+		font: 1em Verdana, Geneva, sans-serif;
+		width: 850px;
+		margin-left: 12.5px;
+		margin-top: 10px;
+		border-collapse:collapse;
+		line-height:2em;
+		position: absolute;
+		margin-left: 20px;
 	}
 	.btn-close{
 		border-radius: 15px;
@@ -34,18 +52,19 @@
 		top:13px;
 		font-weight: bold;
 	}
+	textarea{resize:none; padding-top: 2px; padding-left: 5px; height: auto;}
 	.label-title{
 		position: relative;
 		text-align: center;
 		font: 1.5em verdana, arial, sans-serif;
 		color:#fff;
-		width: 800px;
+		width: 875px;
 		background: #8d2136;
 		line-height:2em; 
 	}
 	.form-group{
 		position: relative;
-		width: 800px;
+		width: 875px;
 		clear: both;
 	}
 	.control-label{
@@ -92,7 +111,7 @@
 		width: 518px;
 	}
 	.col-sm-7e{
-		width: 513px;
+		width: 510px;
 	}
 	.col-sm-8{
 		width: 592px;

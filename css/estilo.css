@@ -8,12 +8,11 @@ a:visited { color:#1063aa; }
 a:active { color:#1063aa; }
 #lblErro{ margin-top:-12px;}
 #chatdiv{ height:450px; background-color:#EEE; border:#ddd 1px solid; overflow-y:scroll;}
-#pdata{text-align:center; color: #999; margin-top:5px; white-space:pre-wrap;}
+#pdata{text-align:center; color: #999; margin-top:5px; white-space:pre-wrap; }
 #pdest{float:left; background-color:#DDD; width:60%; font-weight:700; margin-top:5px; height:auto; white-space:pre-wrap;}
-#premet{float:right; background-color:#DDD; width:60%; font-weight:700;  margin-top:5px; height:auto; white-space:pre-wrap;}
-#plinha{clear:both;}
+#premet{float:right; background-color:#DDD; width:60%; font-weight:700;  margin-top:5px; height:auto; white-space:pre-wrap; }
 #pdataF{float:right; color:#999; margin-top:5px; white-space:pre-wrap;}
-
+#plinha{clear:both;}
 #form1  { 	
 			width: 400px; height: 265px; 
 			position:absolute;  
@@ -22,16 +21,16 @@ a:active { color:#1063aa; }
 		}
 
 #caixaLogado  	{ 	width: 350px;
-					position:absolute; top:27px; left:50%;
-					margin-left:115px; 
+					position:absolute; top:40px; left:50%;
+					margin-left:55px; 
 					padding: 7px;
 					text-align: right;
-					z-index: 10;
+					z-index: 2;
 					font:1em Verdana, Geneva, sans-serif;
 			  	}
 
-#areaCentral { background-image:url(../Images/bg001.jpg); position: absolute; top:0px; min-height: 100%; height:auto;left:50%; margin-left:-387.5px; width: 875px; border-left: 2px #ccc solid; border-right: 2px #ccc solid;}
-
+#areaCentral { position: absolute; top:40px; ;left:50%; margin-left:-387.5px; width: 875px; border-left: 2px #ccc solid; border-right: 2px #ccc solid; z-index: 0;}
+#areaCentral2 {  background-image:url(../Images/bg001.jpg);position: fixed; top:0px; ;left:50%; margin-left:-387.5px; width: 875px; height: 100%; border-left: 2px #ccc solid; border-right: 2px #ccc solid; z-index: -1;}
 #form2  { 	width: 674px; height: 197px;  padding: 7px;
 			position:relative; left:50%; margin-left: -337px;
 		}

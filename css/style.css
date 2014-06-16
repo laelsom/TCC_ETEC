@@ -3,12 +3,24 @@
 and (min-width : 987px)
 and (min-height : 550px) {
 	body{
-		background-color: #dddddd;
+		
 		overflow-x:hidden;
 		overflow:hidden;
 	}
 	*{margin:0; padding:0; text-decoration:none; }
+		#fundo{
+			background: url(../Images/slide1.jpg) fixed no-repeat ;
+		    -webkit-background-size: cover;
+		    -o-background-size: cover;
+		    -moz-background-size: cover;
+		    background-size: cover;
+		    opacity: 0.9;
+		    width: 100%;
+		    height: 100%;
+		    position: fixed;
+		    z-index: -2;
 
+		}
 		#pesquisar
 		{
 			width:575px;
@@ -36,7 +48,7 @@ and (min-height : 550px) {
 		}
 		.div-title{
 			position: absolute;
-			top:25px;
+			top:-10px;
 			width: 60%;
 			height: 35px;
 			background-color: #8d2136;
@@ -45,7 +57,8 @@ and (min-height : 550px) {
 			position: absolute;;
 			width: 235px;
 			left: 50%;
-			margin-left: 200px;
+			margin-left: 165px;
+			margin-top: 5px;
 			text-align: right;
 			background-color: #ccc;
 			height: 490px;
@@ -53,14 +66,16 @@ and (min-height : 550px) {
 			overflow-x:hidden;
 		}
 		.user-chat{
-			width: 200px;
+			width: 233px;
 			margin-right: 2px;
 			background-color: #ddd;
 			height: 35px;
+			border-style:inset;
+			border: #ccc 1px solid;
 		}
 		.title{
 			position: absolute;
-			top:30px;
+			top:-5px;
 			color: #fff;
 			left:50px;
 			z-index: 1;
@@ -75,8 +90,8 @@ and (min-height : 550px) {
 
 		}
 		.btn-default-chat{
-			width: 145px;
-			height: 35px;
+			width: 144px;
+			height: 34px;
 			margin-left: 5px;
 			background-color: #aaa;
 			font: 0.75em Verdana, Geneva, sans-serif;
@@ -100,24 +115,20 @@ and (min-height : 550px) {
 			width: 200px;
 			height: 35px;
 			background-color: #aaa;
-			margin-left:25px;
+			margin-left:75px;
 			font: 1em Verdana, Geneva, sans-serif;
 		}
-		.btn-carrega-agenda{
-			margin-left: 90px;
-			margin-top: 45px;
-		}
-		.btn-new-agenda{
-			margin-left: 260px;
-			margin-top: 45px;
-		}
+		
 		.btn-agenda-default{
-			width: 165px;
-			height: 40px;
-			background-color: #bababa;
 			position: absolute;
-			left:50%;
-			top:50%;
+			left:0;
+			top:365px;
+			width: 340px;
+			height: 40px;
+			margin-left: 10px;
+			background-color: #bababa;
+			
+			
 			font: 1em Verdana, Geneva, sans-serif;
 
 		}
@@ -125,7 +136,12 @@ and (min-height : 550px) {
 			width: 100%;
 			min-height: 30px;
 			font: 1em Verdana, Geneva, sans-serif;
+			-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+          transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 		}
+
 		.menu {
 		    background: url("../Images/menu-bg.jpg");
 		    width: 100px;
@@ -231,7 +247,7 @@ and (min-height : 550px) {
 			width:100%;
 		}
 	#calendario{
-		margin-left: 90px;
+		margin-left: -425px;
 		margin-top: 20px;
 		top:80px;
 		left:50%;

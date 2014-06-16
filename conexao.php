@@ -1,7 +1,7 @@
 ﻿<?php
 	  function conecta($server, $user, $password, $database)
 	  {
-		  mysql_connect($server,$user,$password) 
+		  @mysql_connect($server,$user,$password) 
 		    or die("Erro de conexao com o Banco");
 		  mysql_select_db($database);
 		  //echo "conectou <br/>" ;
@@ -19,14 +19,14 @@
 
 	  function seleciona($comando)
 	  {
-	  	conecta("localhost:3300", "root", "password", "banco");
+	  	conecta("localhost:3300", "root", "root", "banco");
 	  	$cSQL = mysql_query($comando) or die("Erro na conexão. Tente novamente.");
 	  	return $cSQL;
 	  }
 
 	  function executa($comando)
 	  {
-	  	conecta("localhost:3300", "root", "password", "banco");
+	  	conecta("localhost:3300", "root", "root", "banco");
 	  	$cSQL = mysql_query($comando) or die("Erro na conexão. Tente novamente.");
 	  	desconecta();
 	  }

@@ -81,45 +81,74 @@ include_once("conexao.php");
 
 	var month = d.getMonth()+1;
 	var day = d.getDate();
+	var output = d.getFullYear() + '/' +  (month<10 ? '0' : '') + month + '/' +  (day<10 ? '0' : '') + day;
+    $("#dataS").val(output);
 
-	var output = d.getFullYear() + '/' +
-	    (month<10 ? '0' : '') + month + '/' +
-	    (day<10 ? '0' : '') + day;
-     $("#dataS").val(output);
-     $( "#calendario" ).datepicker({
-          inline: true,
-          dateFormat: 'yy-mm-dd',
-              dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
-              dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
-              dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
-              monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
-            constrainInput: true,
-            minDate:'+0d',
-            numberOfMonths: 1,
-          altFormat: 'yy-mm-dd'
+     <?php
+    	$qqq=0;
+		$comando ="select dt_inicio_evento from evento where cd_advogado=".$cd." group by dt_inicio_evento";
+		$cSQL = seleciona($comando);
+		$qtdLinhas = mysql_num_rows($cSQL);
+		if ($qtdLinhas!=0)
+		{
+			while($dados=mysql_fetch_array($cSQL))
+			{    
+				if($qqq==0){
+					$dataspk='"'.$dados[0].'"';
+					$qqq++;
+				}  
+				else{
+					$dataspk.=', "'.$dados[0].'"';	
+				}
+			}
+		}
+	?>
 
+	dateList = [<?php echo $dataspk ?>];
+    $( "#calendario" ).datepicker({
+    	
+    	beforeShowDay: function(dateToShow){ return [($.inArray($.datepicker.formatDate('yy-mm-dd', dateToShow),dateList) >= 0), ""]; //FORMATA A DATA A E PEGA OS DIAS A SEREM MOSTRADOS
 
-        });
+},	
+
+    	inline: true,
+		dateFormat: 'yy-mm-dd',
+		dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
+		dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+		dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+		monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+		constrainInput: true,
+		minDate:'+0d',
+		numberOfMonths: 1,
+		altFormat: 'yy-mm-dd'
+
+		
+	});
       $( "#calendario" ).change(function(){
         
         $("#dataS").val($( "#calendario" ).val());
+        $("#form2").submit();
         
       });
-      $("#carregaA").click(function(){
-      	$("#form2").submit();
-      })
+
+      	
+
 
     });
   </script>
 
     <script>
-
 	$(document).ready(function(){
-			
+		var cep ="";
+		var num ="";
+		var countCEP=0;
+		var countF=0;
 	  $("#txtDataI").change(function(){
 		$("#txtDataF").val($(this).val());
 	  });
-	  
+	  $("#form").css("display","none");
+	  $("#abrirform").click(function(){
+		  $("#form").toggle();
 	  	
 	  });
 	  $(function () {
@@ -230,6 +259,8 @@ include_once("conexao.php");
     <![endif]-->
   </head>
   <body style="overflow:auto; overflow-y:auto;">
+    <div id="fundo"></div>
+    <div id="areaCentral2"></div>
   	
   <aside class="menu">
             <nav class="container-menu">
@@ -281,12 +312,11 @@ include_once("conexao.php");
             </nav>
         </aside>
 <!--Fim Menu--> 
-
+<div id="areaCentral">
      <div id="caixaLogado">
         Ol&aacute; <?=$email ?> | <a href="sair.php">Sair</a>
     </div>
 
-    <div id="areaCentral">
 <div id="calendario"></div>
 
       <div class="divisoria"> </div>
@@ -303,16 +333,18 @@ include_once("conexao.php");
 	   if($typeU==1){
 		   ?>
 
-           
-			<div class="msg">
-				<h5><?=$msg?></h5>
-			</div>
-		<div class='control-form-hide'>
-		    <form class='form-horizontal-hide' role='form' method='post' action='adicionaragenda.php' id="form" name="form">
-				<div class='form-group label-title'>
-					<label for='titleForm' >Novo Evento</label>
-					<input type="button" id="fecharform" name="fecharform" class="btn-close"value="X">
-				</div>
+  <div class="msg">
+      <h5><?=$msg?></h5>
+  </div>
+  <div class='control-form-hide'>
+      <div class='form-horizontal-hide'>
+          <div class='form-group label-title'>
+              <label for='titleForm' >Novo</label>
+              <input type="button" id="fecharform" name="fecharform" class="btn-close"value="X">
+          </div>
+          <div class='form-horizontal-control'>
+
+		    <form class='form-horizontal' role='form' method='post' action='adicionaragenda.php' id="form" name="form">
 				<div class='form-group'>
 					<label for='inputUser' class='col-sm-3 control-label'>Usu&aacute;rio:</label>
 					<div class='col-sm-7'>
@@ -330,7 +362,10 @@ include_once("conexao.php");
 										}
 									}
 								?>
-
+							<option value='2'>Selecione o Usuario</option>
+							<option value='3'>Selecione o Usuario</option>
+							<option value='4'>Selecione o Usuario</option>
+							<option value='5'>Selecione o Usuario</option>
 						</select>
 					</div>
 				</div>
@@ -346,19 +381,9 @@ include_once("conexao.php");
 					</div>
 				</div>
 				<div class='form-group'>
-					<label for='inputDataF' class='col-sm-3 control-label'>Data de Termino:</label>
-					<div class='col-sm-3 col-sm-corrige-4'>
-						<input type='date' class='form-control' name='txtDataF' id='txtDataF' required placeholder='Data'>
-					</div>
-					<label for='inputTF' class='col-sm-3 control-label'>Data de Termino:</label>
-					<div class='col-sm-1'>
-						<input type='time' class='form-control' name='txtTimeF' id='txtTimeF' required placeholder='Hora'>
-					</div>
-				</div>
-				<div class='form-group'>
 					<label for='inputLocal' class='col-sm-3 control-label'>Local:</label>
 					<div class='col-sm-4'>
-						<input type='radio' class='rdoEndereco' id='rdoEndereco' name='rdoEndereco' value='0' checked> Escrit&oacute;rio </input>
+						<input type='radio' class='rdoEndereco' id='rdoEndereco' name='rdoEndereco' value='0'> Escrit&oacute;rio </input>
 					</div>
 					<div class='col-sm-3 col-sm-corrige-4'>
 						<input type='radio' class='rdoEndereco' id='rdoEndereco' name='rdoEndereco' value='1'> Outro Endere&ccedil;o </input>
@@ -402,19 +427,19 @@ include_once("conexao.php");
 				</div>
 				<div class='form-group'>
 					<label for='inputDesc' class='col-sm-3 control-label'>Informa&ccedil;&otilde;es do Evento:</label>
-					<div class='col-sm-7'>
+					<div class='col-sm-7 col-sm-7e'>
 						<textarea id='txtInfo' name='txtInfo' class="form-control" placeholder='Informa&ccedil;&otilde;es Adicionais sobre o evento' rows="6" ></textarea>
 					</div>
 				</div>
 				<div class='form-group'>
-		          <div class='col-sm-3'>
+		          <div class='col-sm-2'>
 		          </div>
 		          <div class='col-sm-7'>
 		            <button type='submit' class='btn-form-default'>Adicionar na Agenda</button>
 		          </div>
 		        </div>
 	     	</form>
-	 	</div>
+	 	</div></div></div>
      <?php
 	   }
       ?>
@@ -455,14 +480,12 @@ include_once("conexao.php");
 				}
                 ?> 
        </table>
-     <input type="button" id="carregaA" name="carregaA" class="btn-agenda-default btn-carrega-agenda" value="Carregar Agenda">
      <?php if($typeU==1)
      {
-     	echo '<input type="button" id="abrirform" name="abrirform" class="btn-agenda-default btn-new-agenda" value="Novo Evento">';
+     	echo '<input type="button" id="abrirform" name="abrirform" class="btn-agenda-default" value="Novo Evento">';
      }
  	 ?>
      </div>
-     </main>
      <form role='form2' method='post' action='agenda.php' id="form2" name="form2">
  	 	<input type='hidden' id='dataS' name='dataS'>
  	 </form>

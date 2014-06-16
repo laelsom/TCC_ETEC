@@ -56,16 +56,16 @@ include_once("conexao.php");
     }  
     switch ($cat) {
       case '0':
-        $pesquisar="where p.cd_processo like '%".$pesquisa."%' ";
+        $pesquisar="p.cd_processo like '%".$pesquisa."%' ";
         break;
       case '1':
-        $pesquisar="where u.cd_cpf_user like '%".$pesquisa."%' ";
+        $pesquisar="u.cd_cpf_user like '%".$pesquisa."%' ";
         break;
       case '2':
-        $pesquisar="where u.cd_cnpj_user like '%".$pesquisa."%' ";
+        $pesquisar="u.cd_cnpj_user like '%".$pesquisa."%' ";
         break;
       case '3':
-        $pesquisar="where cp.nm_classe_processo like '%".$pesquisa."%' ";
+        $pesquisar="cp.nm_classe_processo like '%".$pesquisa."%' ";
         break;
       default:
         $pesquisar=" ";
@@ -155,7 +155,9 @@ include_once("conexao.php");
 
 
   <body style="overflow:auto; overflow-y:auto;">
-
+    <div id="fundo"></div>
+    <div id="areaCentral2"></div>
+    
 <!-- Menu -->
   <aside class="menu">
             <nav class="container-menu">
@@ -209,13 +211,12 @@ include_once("conexao.php");
 
 
 
-
+<div id="areaCentral">
       <!-- info do user -->
     <div id="caixaLogado">
         Ol&aacute; <?=$email ?> | <a href="sair.php">Sair</a>
     </div>
 
-    <div id="areaCentral">
 
 
       <div class="divisoria"> </div>
@@ -263,147 +264,147 @@ include_once("conexao.php");
       <h5><?=$msg?></h5>
   </div>
   <div class='control-form-hide'>
-    <form class='form-horizontal-hide' role='form' method='post' action='incluirProcesso.php' id="form" name="form">
-        <div class='form-group label-title'>
-          <label for='titleForm' >Novo Processo</label>
-          <input type="button" id="fecharform" name="fecharform" class="btn-close"value="X">
-        </div>
-        <div class='form-group'>
-         <label for='inputUser' class='col-sm-3 control-label'>Usu&aacute;rio:</label>
-           <div class='col-sm-7'>
-              <select class='form-control' id='cmbUser' name='cmbUser'>
-                  <option value='0'>Selecione o Usuario</option>
-                      <?php
-                        $comando ="select u.nm_user, u.cd_user, u.cd_cpf_user, u.cd_cnpj_user from advogado_user au inner join user u where au.cd_advogado = ".$cd." and u.cd_user = au.cd_cliente order by cd_user ASC";
-                        $cSQL = seleciona($comando);
-                        $qtdLinhas = mysql_num_rows($cSQL);
-                        if ($qtdLinhas!=0)
-                        {
-                          while($dados=mysql_fetch_array($cSQL))
-                          {                 
-                            if($dados[3]!="" && $dados[2]=="")
-                            {
-                              echo "<option value='".  $dados[1] ."'>  " . $dados[3] ." -  ".$dados[0] . " </option>";
-                            }
-                            else if($dados[3]=="" && $dados[2]!="")
-                            {
-                              echo "<option value='".  $dados[1] ."'>  " . $dados[2] ." -  ".$dados[0] . " </option>";
-                            }
-                          }
-                        }
-                      ?>
+      <div class='form-horizontal-hide'>
+          <div class='form-group label-title'>
+              <label for='titleForm' >Novo Processo</label>
+              <input type="button" id="fecharform" name="fecharform" class="btn-close"value="X">
+          </div>
+          <div class='form-horizontal-control'>
 
-              </select>
-            </div>
-        </div>
-        <div class='form-group'>
-          <label for='inputUser' class='col-sm-3 control-label'>Classe de Processo:</label>
-            <div class='col-sm-7'>
-              <select class='form-control' id='cmbClasse' name='cmbClasse'>
-                  <option value='0'>Selecione o Tipo de Processo</option>
-                      <?php
-                        $comando ="select * from classe_processo order by nm_classe_processo ASC";
-                        $cSQL = seleciona($comando);
-                        $qtdLinhas = mysql_num_rows($cSQL);
-                        if ($qtdLinhas!=0)
-                        {
-                          while($dados=mysql_fetch_array($cSQL))
-                          {                 
-                            echo "<option value='".  $dados[0] ."'> ".$dados[1] . " </option>";
-                          }
-                        }
-                      ?>
-              </select>
-            </div>
-        </div>
-        <div class='form-group'>
-          <label for='inputUser' class='col-sm-3 control-label'>Estado do Processo:</label>
-            <div class='col-sm-7'>
-              <select class='form-control' id='cmbEstado' name='cmbEstado'>
-                  <option value='NULL'>Selecione o Estado do Processo</option>
-                      <?php
-                        $comando ="select * from estado_processo order by nm_estado_processo ASC";
-                        $cSQL = seleciona($comando);
-                        $qtdLinhas = mysql_num_rows($cSQL);
-                        if ($qtdLinhas!=0)
-                        {
-                          while($dados=mysql_fetch_array($cSQL))
-                          {                 
-                            echo "<option value='".  $dados[0] ."'> ".$dados[1] . " </option>";
-                          }
-                        }
-                      ?>
-              </select>
-            </div>
-        </div>
+          <form class='form' role='form' method='post' action='incluirProcesso.php' id="form" name="form">
+              <div class='form-group'>
+               <label for='inputUser' class='col-sm-3 control-label'>Usu&aacute;rio:</label>
+                 <div class='col-sm-7'>
+                    <select class='form-control' id='cmbUser' name='cmbUser'>
+                        <option value='0'>Selecione o Usuario</option>
+                            <?php
+                              $comando ="select u.nm_user, u.cd_user, u.cd_cpf_user, u.cd_cnpj_user from advogado_user au inner join user u where au.cd_advogado = ".$cd." and u.cd_user = au.cd_cliente order by cd_user ASC";
+                              $cSQL = seleciona($comando);
+                              $qtdLinhas = mysql_num_rows($cSQL);
+                              if ($qtdLinhas!=0)
+                              {
+                                while($dados=mysql_fetch_array($cSQL))
+                                {                 
+                                  if($dados[3]!="" && $dados[2]=="")
+                                  {
+                                    echo "<option value='".  $dados[1] ."'>  " . $dados[3] ." -  ".$dados[0] . " </option>";
+                                  }
+                                  else if($dados[3]=="" && $dados[2]!="")
+                                  {
+                                    echo "<option value='".  $dados[1] ."'>  " . $dados[2] ." -  ".$dados[0] . " </option>";
+                                  }
+                                }
+                              }
+                            ?>
 
-        <div class='form-group'>
-          <label for='inputDataI' class='col-sm-3 control-label'>Data de Inicio:</label>
-            <div class='col-sm-2 col-sm-corrige-4'>
-              <input type='date' class='form-control' name='txtDataI' id='txtDataI' required placeholder='Data'>
-            </div>
-          <label for='inputDataF' class='col-sm-3 control-label'>Data de Termino:</label>
-          <div class='col-sm-2'>
-            <input type='date' class='form-control' name='txtDataF' id='txtDataF' placeholder='Data'>
-          </div>
-        </div>
+                    </select>
+                  </div>
+              </div>
+              <div class='form-group'>
+                <label for='inputUser' class='col-sm-3 control-label'>Classe de Processo:</label>
+                  <div class='col-sm-7'>
+                    <select class='form-control' id='cmbClasse' name='cmbClasse'>
+                        <option value='0'>Selecione o Tipo de Processo</option>
+                            <?php
+                              $comando ="select * from classe_processo order by nm_classe_processo ASC";
+                              $cSQL = seleciona($comando);
+                              $qtdLinhas = mysql_num_rows($cSQL);
+                              if ($qtdLinhas!=0)
+                              {
+                                while($dados=mysql_fetch_array($cSQL))
+                                {                 
+                                  echo "<option value='".  $dados[0] ."'> ".$dados[1] . " </option>";
+                                }
+                              }
+                            ?>
+                    </select>
+                  </div>
+              </div>
+              <div class='form-group'>
+                <label for='inputUser' class='col-sm-3 control-label'>Estado do Processo:</label>
+                  <div class='col-sm-7'>
+                    <select class='form-control' id='cmbEstado' name='cmbEstado'>
+                        <option value='NULL'>Selecione o Estado do Processo</option>
+                            <?php
+                              $comando ="select * from estado_processo order by nm_estado_processo ASC";
+                              $cSQL = seleciona($comando);
+                              $qtdLinhas = mysql_num_rows($cSQL);
+                              if ($qtdLinhas!=0)
+                              {
+                                while($dados=mysql_fetch_array($cSQL))
+                                {                 
+                                  echo "<option value='".  $dados[0] ."'> ".$dados[1] . " </option>";
+                                }
+                              }
+                            ?>
+                    </select>
+                  </div>
+              </div>
 
-        <div class='form-group'>
-          <label for='inputDesc' class='col-sm-3 control-label'>Info:</label>
-          <div class='col-sm-7 col-sm-7e'>
-            <textarea id='txtInfo' name='txtInfo' class="form-control" placeholder='Informações Adicionais sobre o evento' rows="6" ></textarea>
-          </div>
+              <div class='form-group'>
+                <label for='inputDataI' class='col-sm-3 control-label'>Data de Inicio:</label>
+                  <div class='col-sm-2 col-sm-corrige-4'>
+                    <input type='date' class='form-control' name='txtDataI' id='txtDataI' required placeholder='Data'>
+                  </div>  
+                  <label for='inputPreco' class='col-sm-2 control-label'>Tipo de Cliente:</label>
+                <div class='col-sm-4'>
+                  <input type="radio" name="radioTreq" value="1" checked='checked'> Requerente
+                  <input type="radio" name="radioTreq" value="0"> Requerido
+                </div>              
+              </div>
+
+              <div class='form-group'>
+                <label for='inputDesc' class='col-sm-3 control-label'>Info:</label>
+                <div class='col-sm-7 col-sm-7e'>
+                  <textarea id='txtInfo' name='txtInfo' class="form-control" placeholder='Informações Adicionais sobre o evento' rows="6" ></textarea>
+                </div>
+              </div>
+              <div class='form-group '>
+                <label for='inputAssunto' class='col-sm-3 control-label'>Assunto Processo:</label>
+                <div class='col-sm-7'>
+                    <?php
+                      $comando ="select * from classe_processo order by nm_classe_processo ASC";
+                      $cSQL = seleciona($comando);
+                      $qtdLinhas = mysql_num_rows($cSQL);
+                      if ($qtdLinhas!=0)
+                      {
+                        while($dados=mysql_fetch_array($cSQL))
+                        {                 
+                          echo "<input type='checkbox' name='classe_processe[]' id='classe_processo[]' value='".  $dados[0] ."'> ".$dados[1] . " <br />";
+                        }
+                      }
+                    ?>
+                </div>
+              </div>
+              <div class='form-group'>
+                <label for='inputJuiz' class='col-sm-3 control-label'>Nome Juiz:</label>
+                <div class='col-sm-7'>
+                  <input id='txtJuiz' name='txtJuiz' class="form-control" maxlength='100'>
+                </div>
+              </div>
+              <div class='form-group'>
+                <label for='input2Parte' class='col-sm-3 control-label'>Nome 2ª Parte:</label>
+                <div class='col-sm-7'>
+                  <input id='txt2Parte' name='txt2Parte' class="form-control" maxlength='100' required >
+                </div>
+              </div>
+              <div class='form-group'>
+                <label for='inputPreco' class='col-sm-3 control-label'>Valor do Processo:</label>
+                <div class='col-sm-7'>
+                  <input id='txtPreco' name='txtPreco' class="form-control" maxlength='100' >
+                </div>
+              </div>
+              
+              <div class='form-group'>
+                <div class='col-sm-2'>
+                </div>
+                <div class='col-sm-7'>
+                  <button type='submit' class='btn-form-default'>Criar Processo</button>
+                </div>
+              </div>
+          </form>
         </div>
-        <div class='form-group '>
-          <label for='inputAssunto' class='col-sm-3 control-label'>Assunto Processo:</label>
-          <div class='col-sm-7'>
-              <?php
-                $comando ="select * from classe_processo order by nm_classe_processo ASC";
-                $cSQL = seleciona($comando);
-                $qtdLinhas = mysql_num_rows($cSQL);
-                if ($qtdLinhas!=0)
-                {
-                  while($dados=mysql_fetch_array($cSQL))
-                  {                 
-                    echo "<input type='checkbox' name='classe_processe[]' id='classe_processo[]' value='".  $dados[0] ."'> ".$dados[1] . " <br />";
-                  }
-                }
-              ?>
-          </div>
-        </div>
-        <div class='form-group'>
-          <label for='inputJuiz' class='col-sm-3 control-label'>Nome Juiz:</label>
-          <div class='col-sm-7'>
-            <input id='txtJuiz' name='txtJuiz' class="form-control" maxlength='100'>
-          </div>
-        </div>
-        <div class='form-group'>
-          <label for='input2Parte' class='col-sm-3 control-label'>Nome 2ª Parte:</label>
-          <div class='col-sm-7'>
-            <input id='txt2Parte' name='txt2Parte' class="form-control" maxlength='100' required >
-          </div>
-        </div>
-        <div class='form-group'>
-          <label for='inputPreco' class='col-sm-3 control-label'>Valor do Processo:</label>
-          <div class='col-sm-7'>
-            <input id='txtPreco' name='txtPreco' class="form-control" maxlength='100' >
-          </div>
-        </div>
-        <div class='form-group'>
-          <label for='inputPreco' class='col-sm-3 control-label'>Tipo de Cliente:</label>
-          <div class='col-sm-7'>
-            <input type="radio" name="radioTreq" value="1" checked='checked'> Requerente
-            <input type="radio" name="radioTreq" value="0"> Requerido
-          </div>
-        </div>
-        <div class='form-group'>
-          <div class='col-sm-3'>
-          </div>
-          <div class='col-sm-7'>
-            <button type='submit' class='btn-form-default'>Criar Processo</button>
-          </div>
-        </div>
-    </form>
+    </div>
   </div>
 
   <?php
@@ -480,18 +481,19 @@ include_once("conexao.php");
 				  
 				  // SELECIONA nr e rm da lista_turma onde a sg, ano e semestre forem iguais	
 
+
+
+
 				  if($cd != 0){  
 				  if($typeU==2){
 				  	$comando  = "select p.cd_processo, u.nm_user, p.dt_inicio_processo, p.dt_limite_processo, cp.nm_classe_processo ";
             $comando .="from processo p inner join classe_processo cp on cp.cd_classe_processo = p.cd_classe_processo " ;
-            $comando .="inner join advogado_user au on au.cd_cliente = ".$cd."  and au.cd_cliente = p.cd_cliente ";
-            $comando .="inner join user u on u.cd_user = au.cd_advogado ".$pesquisar.$orderby ;
+            $comando .="inner join user u on u.cd_user = p.cd_advogado where p.cd_cliente=".$cd.$pesquisar.$orderby ;
 				  }
 				  else if ($typeU==1){
             $comando  = "select p.cd_processo, u.nm_user, p.dt_inicio_processo,p.dt_limite_processo, cp.nm_classe_processo ";
             $comando .="from processo p inner join classe_processo cp on cp.cd_classe_processo = p.cd_classe_processo " ;
-            $comando .= "inner join advogado_user au on au.cd_advogado =".$cd."  and au.cd_cliente = p.cd_cliente ";
-            $comando .="inner join user u on u.cd_user = au.cd_cliente ".$pesquisar.$orderby ;
+            $comando .="inner join user u on u.cd_user = p.cd_cliente where p.cd_advogado=".$cd.$pesquisar.$orderby ;
 				  }
 				  $cSQL = seleciona($comando);
                    $qtdLinhas = mysql_num_rows($cSQL);
@@ -519,11 +521,12 @@ include_once("conexao.php");
                    desconecta();
 				}
 				  }
-                ?> 
+
+                ?>      
        </table>
       
      
      </div>
-     </main>
+
   </body>
 </html>

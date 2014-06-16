@@ -13,7 +13,7 @@
   	$dados = mysql_fetch_array($cSQL);
 		session_start("login");
 		$_SESSION["rmLogado"] = $dados["cd_user"];
-		$_SESSION["nmLogado"] = $dados["cd_email_user"];
+		$_SESSION["nmLogado"] = $dados["nm_user"];
 		$_SESSION["tpLogado"] = $dados["cd_tipo_user"];
 		if($dados["cd_tipo_user"]==1)
 		{

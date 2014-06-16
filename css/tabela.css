@@ -14,6 +14,8 @@
 		width: 500px;
 		margin-top: 25px;
 		position: absolute;
+		left: 50%;
+		margin-left: -75px;
 		z-index: 1;
 	}
 	.msg{
