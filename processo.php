@@ -502,9 +502,9 @@ include_once("conexao.php");
                    {
 					  //Titulo da Tabela
                     if($typeU==1)
-					             echo "<thead><tr>    <th><a href='?orderby=cd'>Código</a></th>      <th class='cliente'><a href='?orderby=nm'>Cliente</a></th>    <th class='data'><a href='?orderby=dti'>Inicio</a></th>     <th class='data'><a href='?orderby=dtf'>Fim</a></th>     <th class='classe'><a href='?orderby=cl'>Classe Processo</a></th>    <th class='btn'>V</th>     </tr></thead>";    
+					             echo "<thead><tr>    <th><a href='?orderby=cd'>Código</a></th>      <th class='cliente'><a href='?orderby=nm'>Cliente</a></th>    <th class='data'><a href='?orderby=dti'>Inicio</a></th>     <th class='data'><a href='?orderby=dtf'>Fim</a></th>     <th class='classe'><a href='?orderby=cl'>Classe Processo</a></th>    <th class='btn'></th>     </tr></thead>";    
                     else if ($typeU==2)
-                      echo "<thead><tr>    <th><a href='?orderby=cd'>Código</a></th>      <th class='cliente'><a href='?orderby=nm'>Advogado</a></th>    <th class='data'><a href='?orderby=dti'>Inicio</a></th>     <th class='data'><a href='?orderby=dtf'>Fim</a></th>     <th class='classe'><a href='?orderby=cl'>Classe Processo</a></th>    <th class='btn'>V</th>     </tr></thead>";   
+                      echo "<thead><tr>    <th><a href='?orderby=cd'>Código</a></th>      <th class='cliente'><a href='?orderby=nm'>Advogado</a></th>    <th class='data'><a href='?orderby=dti'>Inicio</a></th>     <th class='data'><a href='?orderby=dtf'>Fim</a></th>     <th class='classe'><a href='?orderby=cl'>Classe Processo</a></th>    <th class='btn'></th>     </tr></thead>";   
                       while($dados = mysql_fetch_array($cSQL))
                       {
           						  //Cria item na tabela com NR, RM e Nome
@@ -515,7 +515,7 @@ include_once("conexao.php");
                         else{
                           $dataf=date("d/m/Y",strtotime($dados[3]));
                         }
-          						  echo "<tr><td class='codigo'><a href='viewprocesso.php?proc=".$dados[0]."'>".$dados[0]." </a></td><td class='cliente'><a href='viewprocesso.php?proc=".$dados[0]."'>".$dados[1]."</a></td><td class='data'>".date("d/m/Y",strtotime($dados[2]))."</td><td class='data'>".$dataf."</td><td class='classe'>".$dados["nm_classe_processo"]."</td> <td class='btn'></td></tr>";  
+          						  echo "<tr><td class='codigo'><a href='viewprocesso.php?proc=".$dados[0]."'>".$dados[0]." </a></td><td class='cliente'><a href='viewprocesso.php?proc=".$dados[0]."'>".$dados[1]."</a></td><td class='data'>".date("d/m/Y",strtotime($dados[2]))."</td><td class='data'>".$dataf."</td><td class='classe'>".$dados["nm_classe_processo"]."</td> <td class='btn'><a href='editar(".$dados[0].");'><img src='Images/ico/configurar.png' alt='Editar' class='ico-edit'> </a></td></tr>";  
                       }
                    
                    desconecta();

@@ -9,7 +9,7 @@ include_once("conexao.php");
   {
     $cd = $_SESSION["rmLogado"];
     $email = $_SESSION["nmLogado"];
-  $typeU = $_SESSION["tpLogado"];
+    $typeU = $_SESSION["tpLogado"];
   }
   /*if(isset($_POST["cmbUser2"]) &&  $_POST["cmbUser2"] != "0" )
   {
@@ -37,35 +37,33 @@ include_once("conexao.php");
     $cat = $_GET["cat"];    
   }
   switch ($orderby) {
-      case 'cd':
+      case 'cpf':
       default:
-        $orderby="order by p.cd_processo";
+        $orderby="order by u.cd_cnpj_user ASC, u.cd_cpf_user ASC";
         break;
       case 'nm':
         $orderby="order by u.nm_user";
         break;
-      case 'dti':
-        $orderby="order by p.dt_inicio_processo DESC";
+      case 'cnpj':
+        $orderby="order by u.cd_cpf_user ASC, u.cd_cnpj_user DESC";
         break;
-      case 'dtf':
-        $orderby="order by p.dt_limite_processo";
+      default:
+        $orderby=" ";
         break;
-      case 'cl':
-        $orderby="order by cp.nm_classe_processo";
-        break;
+      
     }  
     switch ($cat) {
       case '0':
-        $pesquisar="p.cd_processo like '%".$pesquisa."%' ";
+        $pesquisar="and u.cd_user like '%".$pesquisa."%' ";
         break;
       case '1':
-        $pesquisar="u.cd_cpf_user like '%".$pesquisa."%' ";
+        $pesquisar="and u.cd_cpf_user like '%".$pesquisa."%' ";
         break;
       case '2':
-        $pesquisar="u.cd_cnpj_user like '%".$pesquisa."%' ";
+        $pesquisar="and u.cd_cnpj_user like '%".$pesquisa."%' ";
         break;
       case '3':
-        $pesquisar="cp.nm_classe_processo like '%".$pesquisa."%' ";
+        $pesquisar="and u.nm_user like '%".$pesquisa."%' ";
         break;
       default:
         $pesquisar=" ";
@@ -113,7 +111,9 @@ include_once("conexao.php");
 			});
 		}
 	}
-  
+  function enviarclientes(){
+    $(".chkd").prop("disabled", false);
+  }
 	$(document).ready(function(){
     
 		
@@ -123,10 +123,10 @@ include_once("conexao.php");
 		else{
      if($(this).val() == "" )
          {
-             $(this).css({"border-color" : "#F00", "padding": "10px"});
+             $(this).css({"border-color" : "#F00"});
          }
 		 else{
-			  $(this).css({"border-color" : "#ddd", "padding": "10px"});
+			  $(this).css({"border-color" : "#ddd"});
 		 }
 		}
     });
@@ -136,12 +136,20 @@ include_once("conexao.php");
   <script>
   $(document).ready(function(){
     $(".control-form-hide").css("display","none");
-    $("#abrirform").click(function(){
-      $(".control-form-hide").show();
+    $(".abrirform:eq(0)").click(function(){
+      $(".control-form-hide:eq(0)").show();
       
     });
-    $("#fecharform").click(function(){
-      $(".control-form-hide").hide();
+    $(".fecharform:eq(0)").click(function(){
+      $(".control-form-hide:eq(0)").hide();
+      
+    });
+    $(".abrirform:eq(1)").click(function(){
+      $(".control-form-hide:eq(1)").show();
+      
+    });
+    $(".fecharform:eq(1)").click(function(){
+      $(".control-form-hide:eq(1)").hide();
       
     });
   });
@@ -222,15 +230,15 @@ include_once("conexao.php");
         if($typeU==1){
       ?>
        
-      <input type="button" id="abrirform" name="abrirform" class="btn-default"value="Novo Cliente">
+      <input type="button" name="abrirform" class="btn-default abrirform" value="Novo Cliente">
       <div class="msg">
-          <h5><?echo $msg ?></h5>
+          <h5><?php echo $msg ?></h5>
       </div>
       <div class='control-form-hide'>
           <div class='form-horizontal-hide'>
             <div class='form-group label-title'>
-                <label for='titleForm' >Novo Processo</label>
-                <input type="button" id="fecharform" name="fecharform" class="btn-close"value="X">
+                <label for='titleForm' >Novo Cliente</label>
+                <input type="button"  name="fecharform" class="btn-close fecharform"value="X">
             </div>
             <div class='form-horizontal-control'>
 
@@ -239,7 +247,7 @@ include_once("conexao.php");
                  
                  <div class="form-group">
                       <label for="inputNome" class="col-sm-2 control-label" >Nome Completo:</label>
-                      <div class="col-sm-10">
+                      <div class="col-sm-8">
                         <input type="text" class="form-control" id="txtNome" name="txtNome" required placeholder="Nome Completo">
                       </div>
                  </div>
@@ -248,36 +256,36 @@ include_once("conexao.php");
                       <div class="col-sm-3">
                         <input type="text" class="form-control" id="txtCPF" name="txtCPF" required placeholder="CPF" onBlur="ValidarCPF(form.txtCPF);" onKeyPress="MascaraCPF(form.txtCPF);" maxlength="14">
                       </div>
-                      <label for="inputNascimento" class="col-sm-3 control-label">Data de Nasc.:</label>
-                      <div class="col-sm-4">
+                      <label for="inputNascimento" class="col-sm-2 control-label">Data de Nasc.:</label>
+                      <div class="col-sm-3">
                         <input type="date" class="form-control" name="txtData" id="txtData" required placeholder="Data de Nascimento">
                       </div>            
                  </div>
 
                  <div class="form-group">
                       <label for="inputEmail" class="col-sm-2 control-label">E-mail:</label>
-                      <div class="col-sm-10">
+                      <div class="col-sm-8">
                         <input type="email" class="form-control" id="txtEmail" name="txtEmail" required placeholder="Email">
                       </div>
                  </div>
                  
                  <div class="form-group">
                       <label for="inputConfEmail" class="col-sm-2 control-label">Confirma&ccedil;&atilde;o de E-mail:</label>
-                      <div class="col-sm-10">
+                      <div class="col-sm-8">
                         <input type="email" class="form-control" id="txtConfEmail" name="txtConfEmail" required placeholder="Confirmação de Email">
                       </div>
                  </div>
            
                  <div class="form-group">
                       <label for="inputSenha" class="col-sm-2 control-label">Senha:</label>
-                      <div class="col-sm-10">
+                      <div class="col-sm-8">
                         <input type="password" class="form-control" id="txtSenha" name="txtSenha" required placeholder="Senha">
                       </div>
                  </div>
 
                  <div class="form-group">
                       <label for="inputConfSenha" class="col-sm-2 control-label">Confirma&ccedil;&atilde;o de Senha:</label>
-                      <div class="col-sm-10">
+                      <div class="col-sm-8">
                         <input type="password" class="form-control" id="txtConfSenha" name="txtConfSenha" required placeholder="Confirmação de Senha">
                       </div>
                  </div>
@@ -295,27 +303,27 @@ include_once("conexao.php");
                  </div>       
                  <div class="form-group">
                       <label for="inputEndereco" class="col-sm-2 control-label">Endere&ccedil;o</label>
-                      <div class="col-sm-6">
+                      <div class="col-sm-5">
                         <input type="text" class="form-control" id="txtEndereco" name="txtEndereco" placeholder="Endereço" disabled>
                       </div>
-                      <label for="inputNum" class="col-sm-2 control-label">N&uacute;mero</label>
+                      <label for="inputNum" class="col-sm-1 control-label">N&uacute;mero</label>
                       <div class="col-sm-2">
                         <input type="text" class="form-control" id="txtNum" name="txtNum" required placeholder="Número">
                       </div>
                  </div>
                  <div class="form-group">
                       <label for="inputComplemento" class="col-sm-2 control-label">Complemento Endere&ccedil;o</label>
-                      <div class="col-sm-10">
+                      <div class="col-sm-8">
                         <input type="text" class="form-control" id="txtComplemento" name="txtComplemento" placeholder="Complemento Endereço" >
                       </div>
                  </div>
                  <div class="form-group">
                       <label for="inputBairro" class="col-sm-2 control-label">Bairro</label>
-                      <div class="col-sm-3">
+                      <div class="col-sm-2">
                         <input type="text" class="form-control" id="txtBairro" name="txtBairro" placeholder="Bairro" disabled>
                       </div>
                       <label for="inputCidade" class="col-sm-1 control-label">Cidade</label>
-                      <div class="col-sm-3">
+                      <div class="col-sm-2">
                         <input type="text" class="form-control" id="txtCidade" name="txtCidade" placeholder="Cidade" disabled>
                       </div>
                       <label for="inputUF" class="col-sm-1 control-label">UF</label>
@@ -327,33 +335,178 @@ include_once("conexao.php");
                  
                  <div class="form-group">
                       <label for="inputTelRes" class="col-sm-2 control-label tel">Telefone Residencial</label>
-                      <div class="col-sm-10">
+                      <div class="col-sm-8">
                         <input type="text" class="form-control" id="txtTelRes" name="txtTelRes" maxlength="14" placeholder="(00)0000-0000" onKeyPress="MascaraTelefone(form.txtTelRes);" onBlur="ValidaTelefone(form.txtTelRes);">
                       </div>
                  </div>
                  
                  <div class="form-group">
                       <label for="inputTelCom" class="col-sm-2 control-label tel">Telefone Comercial</label>
-                      <div class="col-sm-10">
+                      <div class="col-sm-8">
                         <input type="text" class="form-control" id="txtTelCom" name="txtTelCom"  maxlength="14" placeholder="(00)0000-0000" onKeyPress="MascaraTelefone(form.txtTelCom);" onBlur="ValidaTelefone(form.txtTelCom);">            </div>
                  </div>
                  
                  <div class="form-group">
                       <label for="inputCelPrinc" class="col-sm-2 control-label cel">Celular Principal</label>
-                      <div class="col-sm-10">
+                      <div class="col-sm-8">
                         <input type="text" class="form-control" id="txtCelPrinc" name="txtCelPrinc" maxlength="15" placeholder="(00)00000-0000" onKeyPress="MascaraCelular(form.txtCelPrinc);" onBlur="ValidaCelular(form.txtCelPrinc);">
                       </div>
                  </div>
                  
                  <div class="form-group">
                         <label for="inputCelSec" class="col-sm-2 control-label cel">Celular Secund&aacute;rio</label>
-                      <div class="col-sm-10">
+                      <div class="col-sm-8">
                         <input type="text" class="form-control" id="txtCelSec" name="txtCelSec" maxlength="15" placeholder="(00)00000-0000" onKeyPress="MascaraCelular(form.txtCelSec);" onBlur="ValidaCelular(form.txtCelSec);">
                       </div>
                  </div>
                  <div class="form-group">
+                      <div class="col-sm-2">
+                      </div>
                       <div class="col-sm-3">
-                      	<input type="submit" value="Cadastrar" class="btn btn-default col-sm-12" id="cadastrar_botao">
+                        <input type="submit" value="Cadastrar" class="btn btn-default" id="cadastrar_botao">
+                      </div>
+                 </div>
+              </form>
+          </div>
+        </div>
+      </div>
+
+
+
+      <input type="button" name="abrirform" class="btn-default abrirform" value="Nova Empresa">
+      <div class="msg">
+          <h5><?echo $msg ?></h5>
+      </div>
+      <div class='control-form-hide'>
+          <div class='form-horizontal-hide'>
+            <div class='form-group label-title'>
+                <label for='titleForm' >Nova Empresa</label>
+                <input type="button"  name="fecharform" class="btn-close fecharform"value="X">
+            </div>
+            <div class='form-horizontal-control'>
+
+              <form class='form' role='form' method='post' action='incluirCliente.php' id="form" name="form">
+                                
+                 
+                 <div class="form-group">
+                      <label for="inputNome" class="col-sm-2 control-label" >Nome Completo:</label>
+                      <div class="col-sm-8">
+                        <input type="text" class="form-control" id="txtNome" name="txtNome" required placeholder="Nome Completo">
+                      </div>
+                 </div>
+                 <div class="form-group">
+                      <label for="inputCPF" class="col-sm-2 control-label">CPF:</label>
+                      <div class="col-sm-3">
+                        <input type="text" class="form-control" id="txtCPF" name="txtCPF" required placeholder="CPF" onBlur="ValidarCPF(form.txtCPF);" onKeyPress="MascaraCPF(form.txtCPF);" maxlength="14">
+                      </div>
+                      <label for="inputNascimento" class="col-sm-2 control-label">Data de Nasc.:</label>
+                      <div class="col-sm-3">
+                        <input type="date" class="form-control" name="txtData" id="txtData" required placeholder="Data de Nascimento">
+                      </div>            
+                 </div>
+
+                 <div class="form-group">
+                      <label for="inputEmail" class="col-sm-2 control-label">E-mail:</label>
+                      <div class="col-sm-8">
+                        <input type="email" class="form-control" id="txtEmail" name="txtEmail" required placeholder="Email">
+                      </div>
+                 </div>
+                 
+                 <div class="form-group">
+                      <label for="inputConfEmail" class="col-sm-2 control-label">Confirma&ccedil;&atilde;o de E-mail:</label>
+                      <div class="col-sm-8">
+                        <input type="email" class="form-control" id="txtConfEmail" name="txtConfEmail" required placeholder="Confirmação de Email">
+                      </div>
+                 </div>
+           
+                 <div class="form-group">
+                      <label for="inputSenha" class="col-sm-2 control-label">Senha:</label>
+                      <div class="col-sm-8">
+                        <input type="password" class="form-control" id="txtSenha" name="txtSenha" required placeholder="Senha">
+                      </div>
+                 </div>
+
+                 <div class="form-group">
+                      <label for="inputConfSenha" class="col-sm-2 control-label">Confirma&ccedil;&atilde;o de Senha:</label>
+                      <div class="col-sm-8">
+                        <input type="password" class="form-control" id="txtConfSenha" name="txtConfSenha" required placeholder="Confirmação de Senha">
+                      </div>
+                 </div>
+                 
+                 <!-- TIPO USUARIO  - - Fazer com PHP - - TIPO USUARIO -->
+                 <!-- CNA ADVOGADO  - - Fazer com PHP - - CNA ADVOGADO -->
+                 
+                 <div class="form-group">
+                      <label for="inputCEP" class="col-sm-2 control-label">CEP</label>
+                      <div class="col-sm-4">
+                        <input type="text" class="form-control" id="txtCEP" name="txtCEP" required placeholder="CEP" onChange="getCEP();" onKeyPress="MascaraCep(form.txtCEP);" maxlength"10" onBlur="ValidaCep(form.txtCEP)">
+                      </div>
+                      <a href="http://www.buscacep.correios.com.br/servicos/dnec/menuAction.do?Metodo=menuEndereco" target="_blank"><label for="inputNum" class="col-sm-2 control-label">Buscar CEP</label></a>
+                      
+                 </div>       
+                 <div class="form-group">
+                      <label for="inputEndereco" class="col-sm-2 control-label">Endere&ccedil;o</label>
+                      <div class="col-sm-5">
+                        <input type="text" class="form-control" id="txtEndereco" name="txtEndereco" placeholder="Endereço" disabled>
+                      </div>
+                      <label for="inputNum" class="col-sm-1 control-label">N&uacute;mero</label>
+                      <div class="col-sm-2">
+                        <input type="text" class="form-control" id="txtNum" name="txtNum" required placeholder="Número">
+                      </div>
+                 </div>
+                 <div class="form-group">
+                      <label for="inputComplemento" class="col-sm-2 control-label">Complemento Endere&ccedil;o</label>
+                      <div class="col-sm-8">
+                        <input type="text" class="form-control" id="txtComplemento" name="txtComplemento" placeholder="Complemento Endereço" >
+                      </div>
+                 </div>
+                 <div class="form-group">
+                      <label for="inputBairro" class="col-sm-2 control-label">Bairro</label>
+                      <div class="col-sm-2">
+                        <input type="text" class="form-control" id="txtBairro" name="txtBairro" placeholder="Bairro" disabled>
+                      </div>
+                      <label for="inputCidade" class="col-sm-1 control-label">Cidade</label>
+                      <div class="col-sm-2">
+                        <input type="text" class="form-control" id="txtCidade" name="txtCidade" placeholder="Cidade" disabled>
+                      </div>
+                      <label for="inputUF" class="col-sm-1 control-label">UF</label>
+                      <div class="col-sm-2">
+                        <input type="text" class="form-control" id="txtUF" name="txtUF" placeholder="UF" disabled>
+                      </div>
+                 </div>
+                 
+                 
+                 <div class="form-group">
+                      <label for="inputTelRes" class="col-sm-2 control-label tel">Telefone Residencial</label>
+                      <div class="col-sm-8">
+                        <input type="text" class="form-control" id="txtTelRes" name="txtTelRes" maxlength="14" placeholder="(00)0000-0000" onKeyPress="MascaraTelefone(form.txtTelRes);" onBlur="ValidaTelefone(form.txtTelRes);">
+                      </div>
+                 </div>
+                 
+                 <div class="form-group">
+                      <label for="inputTelCom" class="col-sm-2 control-label tel">Telefone Comercial</label>
+                      <div class="col-sm-8">
+                        <input type="text" class="form-control" id="txtTelCom" name="txtTelCom"  maxlength="14" placeholder="(00)0000-0000" onKeyPress="MascaraTelefone(form.txtTelCom);" onBlur="ValidaTelefone(form.txtTelCom);">            </div>
+                 </div>
+                 
+                 <div class="form-group">
+                      <label for="inputCelPrinc" class="col-sm-2 control-label cel">Celular Principal</label>
+                      <div class="col-sm-8">
+                        <input type="text" class="form-control" id="txtCelPrinc" name="txtCelPrinc" maxlength="15" placeholder="(00)00000-0000" onKeyPress="MascaraCelular(form.txtCelPrinc);" onBlur="ValidaCelular(form.txtCelPrinc);">
+                      </div>
+                 </div>
+                 
+                 <div class="form-group">
+                        <label for="inputCelSec" class="col-sm-2 control-label cel">Celular Secund&aacute;rio</label>
+                      <div class="col-sm-8">
+                        <input type="text" class="form-control" id="txtCelSec" name="txtCelSec" maxlength="15" placeholder="(00)00000-0000" onKeyPress="MascaraCelular(form.txtCelSec);" onBlur="ValidaCelular(form.txtCelSec);">
+                      </div>
+                 </div>
+                 <div class="form-group">
+                      <div class="col-sm-2">
+                      </div>
+                      <div class="col-sm-3">
+                        <input type="submit" value="Cadastrar" class="btn btn-default" id="cadastrar_botao">
                       </div>
                  </div>
               </form>
@@ -365,10 +518,10 @@ include_once("conexao.php");
       <?php
         }
       ?>
-      <form id="pesquisar">
+      <form id="pesquisarq">
         <label id="pesq">PESQUISAR POR:</label>
         <select id="cat" name="cat" style="width:150px; float:left; margin-left:13px; margin-top:7px;">
-          <option value='0'>Código</option>
+          <option value='0'>C&oacute;digo</option>
           <option value='1'>CPF</option>
           <option value='2'>CNPJ</option>
           <option value='3'>Classe Processo</option>
@@ -376,6 +529,7 @@ include_once("conexao.php");
         <input type="text" id="pesquisa" name="pesquisa" style="width:140px; margin-top:0px; float:left; margin-top:7px; margin-left:5px;">
         <input type="submit"  class="btn-default btn-pesquisa" value="Pesquisar">
       </form>
+      <form id="clientes" role='form' method='post' action='atualizacliente.php' name="clientes">
 
       <table class="table">
               <?php
@@ -387,7 +541,7 @@ include_once("conexao.php");
 
           if($cd != 0){  
           if($typeU==1){
-            $comando = "select * from user where cd_tipo_user=2";
+            $comando = "select u.nm_user, u.cd_cnpj_user, u.cd_cpf_user, u.cd_user from user u where cd_tipo_user=2 ".$pesquisar." ".$orderby;
           }
           $cSQL = seleciona($comando);
                    $qtdLinhas = mysql_num_rows($cSQL);
@@ -396,28 +550,59 @@ include_once("conexao.php");
                    {
             //Titulo da Tabela
                     if($typeU==1)
-                       echo "<thead><tr>    <th><a href='?orderby=cd'>Código</a></th>      <th class='cliente'><a href='?orderby=nm'>Cliente</a></th>    <th class='data'><a href='?orderby=dti'>Inicio</a></th>     <th class='data'><a href='?orderby=dtf'>Fim</a></th>     <th class='classe'><a href='?orderby=cl'>Classe Processo</a></th>    <th class='btn'>V</th>     </tr></thead>";    
-                    else if ($typeU==2)
-                      echo "<thead><tr>    <th><a href='?orderby=cd'>Código</a></th>      <th class='cliente'><a href='?orderby=nm'>Advogado</a></th>    <th class='data'><a href='?orderby=dti'>Inicio</a></th>     <th class='data'><a href='?orderby=dtf'>Fim</a></th>     <th class='classe'><a href='?orderby=cl'>Classe Processo</a></th>    <th class='btn'>V</th>     </tr></thead>";   
-                      while($dados = mysql_fetch_array($cSQL))
+                       echo "<thead><tr>    <th><a href='?orderby=cpf'>CPF</a></th>      <th class='codigo'><a href='?orderby=cnpj'>CNPJ</a></th>    <th class='cliente'><a href='?orderby=nm'>Nome do Usu&aacute;rio</a></th>    <th class='btn'><input type='submit' value='Atualizar Clientes' class='btn-form-default-out' onClick='enviarclientes();'>  </th>     </tr></thead>";    
+                    while($dados = mysql_fetch_array($cSQL))
                       {
-                        //Cria item na tabela com NR, RM e Nome
-                        if($dados[3] == "")
+                        $comando2="select * from advogado_user where cd_advogado = ".$cd." and cd_cliente=".$dados[3];
+                        $cSQL2 = seleciona($comando2);
+                        $qtdLinhas2 = mysql_num_rows($cSQL2);
+                        if ($qtdLinhas2!=0)
                         {
-                          $dataf="--/--/----";
+                            $comando3="select * from processo where cd_advogado = ".$cd." and cd_cliente=".$dados[3];
+                            $cSQL3 = seleciona($comando3);
+                            $qtdLinhas3 = mysql_num_rows($cSQL3);
+                            if ($qtdLinhas3!=0)
+                            {
+                                if($dados[1] == "")
+                                {
+                                  echo "<tr><td class='codigo'>".$dados[2]."</td> <td class='codigo'> </td> <td >".$dados[0]."</td> <td class='btn'><input type='checkbox' class='checkboxBTN chkd' checked disabled name='meusclientes[]' value=".$dados[3]."> </td></tr>";  
+                                }
+                                else{
+                                  echo "<tr><td class='codigo'> </td> <td class='codigo'> ".$dados[1]."</td> <td >".$dados[0]."</td> <td class='btn'><input type='checkbox' class='checkboxBTN chkd' checked disabled  name='meusclientes[]' value=".$dados[3]."> </td></tr>"; 
+                                }
+                            }
+                            else{
+                                if($dados[1] == "")
+                                {
+                                  echo "<tr><td class='codigo'>".$dados[2]."</td> <td class='codigo'> </td> <td >".$dados[0]."</td> <td class='btn'><input type='checkbox' class='checkboxBTN' checked name='meusclientes[]' value=".$dados[3]."> </td></tr>";  
+                                }
+                                else{
+                                  echo "<tr><td class='codigo'> </td> <td class='codigo'> ".$dados[1]."</td> <td >".$dados[0]."</td> <td class='btn'><input type='checkbox' class='checkboxBTN' checked name='meusclientes[]' value=".$dados[3]."> </td></tr>"; 
+                                }
+
+                            }
                         }
                         else{
-                          $dataf=date("d/m/Y",strtotime($dados[3]));
+                            if($dados[1] == "")
+                            {
+                              echo "<tr><td class='codigo'>".$dados[2]."</td> <td class='codigo'> </td> <td >".$dados[0]."</td> <td class='btn'><input type='checkbox' class='checkboxBTN' name='meusclientes[]' value=".$dados[3]."> </td></tr>";  
+                            }
+                            else{
+                              echo "<tr><td class='codigo'> </td> <td class='codigo'> ".$dados[1]."</td> <td >".$dados[0]."</td> <td class='btn'><input type='checkbox' class='checkboxBTN' name='meusclientes[]' value=".$dados[3]."> </td></tr>"; 
+                            }
+
                         }
-                        echo "<tr><td class='codigo'><a href='viewprocesso.php?proc=".$dados[0]."'>".$dados[0]." </a></td><td class='cliente'><a href='viewprocesso.php?proc=".$dados[0]."'>".$dados[1]."</a></td><td class='data'>".date("d/m/Y",strtotime($dados[2]))."</td><td class='data'>".$dataf."</td><td class='classe'>".$dados[3]."</td> <td class='btn'></td></tr>";  
                       }
                    
                    desconecta();
         }
           }
 
-                ?>      
+                ?>    
+
        </table>
+       
+     </form>
 
     </div>
 

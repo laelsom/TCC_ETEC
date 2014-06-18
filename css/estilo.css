@@ -26,16 +26,15 @@ a:active { color:#1063aa; }
 					padding: 7px;
 					text-align: right;
 					z-index: 2;
-					font:1em Verdana, Geneva, sans-serif;
+					font:0.9em Verdana, Geneva, sans-serif;
 			  	}
 
-#areaCentral { position: absolute; top:40px; ;left:50%; margin-left:-387.5px; width: 875px; border-left: 2px #ccc solid; border-right: 2px #ccc solid; z-index: 0;}
-#areaCentral2 {  background-image:url(../Images/bg001.jpg);position: fixed; top:0px; ;left:50%; margin-left:-387.5px; width: 875px; height: 100%; border-left: 2px #ccc solid; border-right: 2px #ccc solid; z-index: -1;}
+#areaCentral { position: absolute; top:40px; ;left:50%; opacity:1; margin-left:-387.5px; width: 875px; border-left: 2px #ccc solid; border-right: 2px #ccc solid; z-index: 0;}
+#areaCentral2 {  background-image:url(../Images/bg001.jpg); opacity: 0.7; position: fixed; top:0px; ;left:50%; margin-left:-387.5px; width: 875px; height: 100%; border-left: 2px #ccc solid; border-right: 2px #ccc solid; z-index: -1;}
 #form2  { 	width: 674px; height: 197px;  padding: 7px;
 			position:relative; left:50%; margin-left: -337px;
 		}
 
-#msg  { 	padding: 0px;
-			position:relative; 
-			top:0; left:50%; margin-left:-500px; width: 1000px;
+.msg  { 	padding: 0px;
+			position:relative; top: 40px; font-size: -0.9em; left:-15px;  width: 500px;
 		}		

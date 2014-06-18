@@ -93,10 +93,10 @@ function ValidarCPF(Objcpf){
 	{	
 		alert('CPF Invalido!');	
 		Objcpf.value="";
-		Objcpf.css({"border-color" : "#F00", "padding": "10px"});
+		Objcpf.css({"border-color" : "#F00"});
 	}
 	else{
-		Objcpf.css({"border-color" : "#ddd", "padding": "10px"});
+		Objcpf.css({"border-color" : "#ddd"});
 	}
 }
 
